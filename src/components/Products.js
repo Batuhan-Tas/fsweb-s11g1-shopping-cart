@@ -1,5 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { ProductContext } from "../contexts/ProductContext";
+import ProductContextProvider from "../contexts/ProductContext";
+import { useContext } from "react";
+import { CartContext } from "../contexts/CartContext";
 
 // Components
 import Product from "./Product";
@@ -18,11 +22,13 @@ const ScProducts = styled.section`
   }
 `;
 
-const Products = (props) => {
+const Products = () => {
+  const { products } = useContext(ProductContext);
+  const { addItem } = useContext(CartContext);
   return (
     <ScProducts>
-      {props.products.map((product) => (
-        <Product key={product.id} product={product} addItem={props.addItem} />
+      {products.map((product) => (
+        <Product key={product.id} product={product} addItem={addItem} />
       ))}
     </ScProducts>
   );
